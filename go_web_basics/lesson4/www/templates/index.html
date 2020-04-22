@@ -20,7 +20,7 @@
         <div class="uk-card uk-card-default uk-card-body" task-id="{{.ID}}">
             <div>
                 {{if .Completed}}
-                    <input type="checkbox" class="uk-checkbox" checked onclick="updateTask('{{.ID}}')">
+                    <input type="checkbox" class="uk-checkbox" checked onclick="updateTask('{{.ID}}')"> 
                 {{else}}
                     <input type="checkbox" class="uk-checkbox" onclick="updateTask('{{.ID}}')">
                 {{end}}
@@ -54,15 +54,42 @@
 {{define "Script"}}
 <script>
     function updateTask(id) {
-
+        let cardNew = document.querySelector(`div[task-id="${id}"]`)
+        let completed = cardNew.querySelector('input[type="checkbox"]').checked
+        let text = cardNew.querySelector('input[type="text"]').value
+        console.log(completed)
+        fetch(`/api/v1/tasks/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                text,
+                completed
+            })
+        }).then(resp => location.reload())
     }
 
     function deleteTask(id) {
-
+        fetch(`/api/v1/tasks/${id}`, {method: 'DELETE'})
+            .then(resp => {
+                location.reload()
+            })
     }
 
-    function createTask() {
-
+    function createTask()  {
+        let cardNew = document.querySelector('div[task-id="new"]')
+        let completed = cardNew.querySelector('input[type="checkbox"]').checked
+        let text = cardNew.querySelector('input[type="text"]').value
+        fetch(`/api/v1/tasks`, {
+            method: 'POST',
+            body: JSON.stringify({
+                text,
+                completed
+            })
+        }).then(resp => {
+            resp.json().then(data =>{
+                console.log(data)
+                location.reload()
+            })
+        })
     }
 </script>
 {{end}}

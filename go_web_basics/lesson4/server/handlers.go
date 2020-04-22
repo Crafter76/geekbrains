@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"serv/models"
+
+	"github.com/Crafter76/geekbrains/tree/master/go_web_basics/lesson4/models"
 
 	"github.com/go-chi/chi"
 	uuid "github.com/satori/go.uuid"
@@ -38,6 +39,12 @@ func (serv *Server) getTemplateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templ, err := template.New("Page").Parse(string(data))
+	if err != nil {
+		serv.SendInternalErr(w, err)
+		return
+	}
+
+	tasks, err := models.GetAllTaskItems(serv.db)
 	if err != nil {
 		serv.SendInternalErr(w, err)
 		return

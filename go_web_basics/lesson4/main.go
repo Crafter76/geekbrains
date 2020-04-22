@@ -1,11 +1,25 @@
 package main
 
 import (
+	"database/sql"
 	"flag"
 	"os"
 	"os/signal"
-	"serv/server"
+
+	"github.com/Crafter76/geekbrains/tree/master/go_web_basics/lesson4/server"
+	"github.com/sirupsen/logrus"
+
+	_ "github.com/go-sql-driver/mysql"
 )
+
+// NewLogger - Создаёт новый логгер
+func NewLogger() *logrus.Logger {
+	lg := logrus.New()
+	lg.SetReportCaller(false)
+	lg.SetFormatter(&logrus.TextFormatter{})
+	lg.SetLevel(logrus.DebugLevel)
+	return lg
+}
 
 func main() {
 	flagRootDir := flag.String("rootdir", "./www", "root dir of the server")
@@ -13,6 +27,11 @@ func main() {
 	flag.Parse()
 
 	lg := NewLogger()
+	db, err := sql.Open("mysql", "mysql:root@/todo")
+	if err != nil {
+		lg.WithError(err).Fatal("can't connect to db")
+	}
+	defer db.Close()
 	serv := server.New(lg, *flagRootDir, db)
 
 	go func() {

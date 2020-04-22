@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"serv/models"
+
+	"github.com/Crafter76/geekbrains/tree/master/go_web_basics/lesson4/models"
 
 	"github.com/go-chi/chi"
 	"github.com/sirupsen/logrus"
@@ -13,6 +14,7 @@ import (
 // Server - объект сервера
 type Server struct {
 	lg            *logrus.Logger
+	db            *sql.DB
 	rootDir       string
 	templatesDir  string
 	indexTemplate string
@@ -23,6 +25,7 @@ type Server struct {
 func New(lg *logrus.Logger, rootDir string, db *sql.DB) *Server {
 	return &Server{
 		lg:            lg,
+		db:            db,
 		rootDir:       rootDir,
 		templatesDir:  "/templates",
 		indexTemplate: "index.html",
