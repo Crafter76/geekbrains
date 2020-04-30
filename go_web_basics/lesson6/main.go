@@ -25,7 +25,7 @@ func main() {
 	// _ = post.Insert(ctx, db)
 	// fmt.Println(post)
 
-	чтение
+	// чтение
 	id, _ := primitive.ObjectIDFromHex("5eaa718cf2609ef3f671f478")
 	post, err := models.GetPost(ctx, db, id)
 	if err != nil {
