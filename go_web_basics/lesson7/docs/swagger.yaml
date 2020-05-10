@@ -1,0 +1,77 @@
+definitions:
+  models.ServErr:
+    properties:
+      code:
+        type: integer
+      desc:
+        type: string
+      err:
+        type: string
+      internal:
+        type: object
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/doc/swagger.json:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: возвращает swagger.json
+      tags:
+      - swagger
+  /api/v1/echo:
+    post:
+      description: Функция, которая вернет что ей отправили
+      parameters:
+      - description: Echo body
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ServErr'
+      summary: Эхо функция
+      tags:
+      - server
+      - echo
+      - system
+    put:
+      description: Функция, которая вернет что ей отправили
+      parameters:
+      - description: Echo body
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Эхо функция 2
+      tags:
+      - server
+      - echo
+swagger: "2.0"

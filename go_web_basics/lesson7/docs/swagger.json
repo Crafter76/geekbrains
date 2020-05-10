@@ -1,0 +1,119 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/v1/doc/swagger.json": {
+            "get": {
+                "tags": [
+                    "swagger"
+                ],
+                "summary": "возвращает swagger.json",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/echo": {
+            "put": {
+                "description": "Функция, которая вернет что ей отправили",
+                "tags": [
+                    "server",
+                    "echo"
+                ],
+                "summary": "Эхо функция 2",
+                "parameters": [
+                    {
+                        "description": "Echo body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Функция, которая вернет что ей отправили",
+                "tags": [
+                    "server",
+                    "echo",
+                    "system"
+                ],
+                "summary": "Эхо функция",
+                "parameters": [
+                    {
+                        "description": "Echo body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ServErr"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ServErr": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "err": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
