@@ -1,0 +1,6 @@
+logger:
+    level: Debug
+    output: serv.log
+    syslog: true
+server:
+    addr: ":8080"
